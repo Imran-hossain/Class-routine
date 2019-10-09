@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>JCS</title>
 
         <!-- Fonts -->
@@ -81,9 +81,12 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                Group Project
+                    <div id="example">
+                        
+                    </div>
                 </div>
             </div>
         </div>
     </body>
+    <script src="{{asset('/js/app.js')}}"></script>
 </html>
