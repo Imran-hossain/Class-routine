@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
 import Home from './Home';
 import About from './About';
-import Category from './category/Index';
-import Post from './post/Index';
 import Error404 from './Error404';
 export default class Header extends Component {
     render() {
