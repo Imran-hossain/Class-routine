@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
+import List from './List'
 
 export default class About extends Component {
     render() {
         return (
-            <div>
-                This is About.
+            <div className = "container">
+            <div className ="row">
+            <div className = "col-md-6 mx-auto">
+            <h1 className="text-center">STUDENT DETAILS</h1>
+            </div>
+            </div>
             </div>
         );
     }
