@@ -10,52 +10,78 @@ export default class Header extends Component {
         return (
 
             <div>
-                <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
 
-                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul className="navbar-nav mr-auto">
-                            <li className="nav-item active">
-                                <Link className="nav-link" to="/">Home </Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/about">About Us</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/category">Category</Link>
-                            </li>
+{/* This is done by shoikoth for left sidebar*/}
 
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/post">Posts</Link>
-                            </li>
+<div id="wrapper">
+    <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <Link className="sidebar-brand d-flex align-items-center justify-content-center" to="/">
+            <div className="sidebar-brand-icon rotate-n-15">
+              <i className="fas fa-laugh-wink" />
+            </div>
+            <div className="sidebar-brand-text mx-3">
+              Admin Panel
+            </div>
+        </Link>
+        <hr className="sidebar-divider my-0" />
+        {/* Nav Item - Dashboard */}
+        <li className="nav-item active">
+          <Link className="nav-link" to="/about">
+              <i className="fas fa-fw fa-tachometer-alt" ></i>
+              <span>Dashboard</span>
+          </Link>
+        </li>
+        <hr className="sidebar-divider my-0" />
+        <li className="nav-item">
+          <Link className="nav-link" to="/post">
+            <i className="fas fa-fw fa-table" />
+            <span>Class Routine</span>
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link" to="/post">
+            <i class="fas fa-users" />
+            <span>Groups</span>
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link" to="/post">
+            <i class="fas fa-map-marked-alt" />
+            <span>Locations</span>
+          </Link>
+        </li>
 
-                        </ul>
-                        <form className="form-inline my-2 my-lg-0">
-                            <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-                            <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                        </form>
-                    </div>
-                </nav>
-                <div className='row'>
-                    <div className='col-md-12'>
-                        <Switch>
-                            <Route exact path='/' component={Home} />
-                            <Route exact path='/about' component={About} />
-                            <Route exact path='/category' component={Category} />
-                            <Route exact path="/category/add" component={Category} />
-                            <Route exact path="/category/edit/:id" component={Category} />
-
-                            <Route exact path='/post' component={Post} />
-                            <Route exact path="/post/add" component={Post} />
-                            <Route exact path="/post/edit/:id" component={Post} />
+        <li className="nav-item">
+          <Link className="nav-link" to="/post">
+            <i class="fas fa-universal-access" />
+            <span>Member</span>
+          </Link>
+        </li>
 
 
-                            <Route exact path="/*" component={Error404} />
-                        </Switch>
-                    </div>
-                </div>
+      <div className="text-center d-none d-md-inline">
+        <button className="rounded-circle border-0" id="sidebarToggle" />
+      </div>
+    </ul>
+    <div id="content-wrapper" className="d-flex flex-column">
+
+
+                <Switch>
+                    <Route exact path='/' component={Home} />
+                    <Route exact path='/about' component={About} />
+                    <Route exact path="/*" component={Error404} />
+                </Switch>
+    </div>
+
+</div>
+
+
+
+
+
+{/* End of sidebar*/}
+
+
 
             </div>
 
