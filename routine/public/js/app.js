@@ -73786,9 +73786,7 @@ function (_Component) {
   _createClass(Index, [{
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Header__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Footer__WEBPACK_IMPORTED_MODULE_3__["default"], null));
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Header__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Footer__WEBPACK_IMPORTED_MODULE_3__["default"], null));
     }
   }]);
 
@@ -75129,8 +75127,8 @@ function (_Component) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! G:\Human-resocia-class-routine\routine\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! G:\Human-resocia-class-routine\routine\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! F:\JCS\Class-routine\routine\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! F:\JCS\Class-routine\routine\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
