@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
-import { Link, Route, Switch } from 'react-router-dom';
+import {BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 import Home from './Home';
-import About from './About';
+import Dashboard from './Dashboard';
+import Group from './Group';
+import Location from './Location';
+import Member from './Member';
+import Routine from './Routine';
 import Error404 from './Error404';
 export default class Header extends Component {
     render() {
         return (
-
+          <Router>
             <div>
 
 {/* This is done by shoikoth for left sidebar*/}
@@ -24,34 +28,36 @@ export default class Header extends Component {
         <hr className="sidebar-divider my-0" />
         {/* Nav Item - Dashboard */}
         <li className="nav-item active">
-          <Link className="nav-link" to="/about">
+          <Link className="nav-link" to="/dashboard">
               <i className="fas fa-fw fa-tachometer-alt" ></i>
               <span>Dashboard</span>
           </Link>
         </li>
         <hr className="sidebar-divider my-0" />
         <li className="nav-item">
-          <Link className="nav-link" to="/post">
+          <Link className="nav-link" to="/Routine">
             <i className="fas fa-fw fa-table" />
             <span>Class Routine</span>
           </Link>
         </li>
+        <hr className="sidebar-divider my-0" />
         <li className="nav-item">
-          <Link className="nav-link" to="/post">
+          <Link className="nav-link" to="/Group">
             <i class="fas fa-users" />
             <span>Groups</span>
           </Link>
         </li>
+        <hr className="sidebar-divider my-0" />
         <li className="nav-item">
-          <Link className="nav-link" to="/post">
+          <Link className="nav-link" to="/Location">
             <i class="fas fa-map-marked-alt" />
             <span>Locations</span>
           </Link>
         </li>
-
+        <hr className="sidebar-divider my-0" />
         <li className="nav-item">
-          <Link className="nav-link" to="/post">
-            <i class="fas fa-universal-access" />
+          <Link className="nav-link" to="/Member">
+            <i class="fas fa-male" />
             <span>Member</span>
           </Link>
         </li>
@@ -62,13 +68,24 @@ export default class Header extends Component {
       </div>
     </ul>
     <div id="content-wrapper" className="d-flex flex-column">
+        <div id="content">
+          <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+            {/* Sidebar Toggle (Topbar) */}
+            <button id="sidebarToggleTop" className="btn btn-link d-md-none rounded-circle mr-3" >
+              <i className="fa fa-bars" />
+            </button>
+          </nav>
 
-
-                <Switch>
-                    <Route exact path='/' component={Home} />
-                    <Route exact path='/about' component={About} />
-                    <Route exact path="/*" component={Error404} />
-                </Switch>
+          <Switch>
+              <Route exact path='/' component={Home} />
+              <Route exact path='/dashboard' component={Dashboard} />
+              <Route exact path='/Group' component={Group} />
+              <Route exact path='/Location' component={Location} />
+              <Route exact path='/Routine' component={Routine} />
+              <Route exact path='/Member' component={Member} />
+              <Route exact path="/*" component={Error404} />
+          </Switch>
+        </div>
     </div>
 
 </div>
@@ -82,6 +99,7 @@ export default class Header extends Component {
 
 
             </div>
+            </Router>
 
         );
     }
