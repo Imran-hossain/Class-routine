@@ -73883,8 +73883,8 @@ function (_Component) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! G:\Human-resocia-class-routine\routine\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! G:\Human-resocia-class-routine\routine\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! F:\Class-routine\routine\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! F:\Class-routine\routine\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
