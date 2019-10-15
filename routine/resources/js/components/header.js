@@ -7,6 +7,7 @@ import Location from './Location';
 import Member from './Member';
 import Routine from './Routine';
 import Error404 from './Error404';
+import Login from "./Login";
 export default class Header extends Component {
     render() {
         return (
@@ -61,6 +62,13 @@ export default class Header extends Component {
             <span>Member</span>
           </Link>
         </li>
+        <hr className="sidebar-divider my-0" />
+        <li className="nav-item">
+          <Link className="nav-link" to="/Login">
+            <i class="fas fa-male" />
+            <span>Login</span>
+          </Link>
+        </li>
 
 
       <div className="text-center d-none d-md-inline">
@@ -83,6 +91,7 @@ export default class Header extends Component {
               <Route exact path='/Location' component={Location} />
               <Route exact path='/Routine' component={Routine} />
               <Route exact path='/Member' component={Member} />
+              <Route exact path="/login" exact component={Login} />
               <Route exact path="/*" component={Error404} />
           </Switch>
         </div>
