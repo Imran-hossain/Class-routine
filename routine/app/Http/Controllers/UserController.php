@@ -19,16 +19,18 @@ class UserController extends Controller
     public function register(Request $request)
     {
 
-        $admin = $request->json()->get('type');
-        if($admin == 'ADMIN'){
+        $admin_email = $request->json()->get('admin_email');
+        $admin_token = $request->json()->get('admin_token');
+
+        if($admin_email == 'admin_email' &&  $admin_token =='admin_token'){
+
             $validator = Validator::make($request->json()->all() , [
             'name' => 'required|string|max:255',
             'type' => 'required|string',
             'ID' => 'required|string|max:10',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6', 
-
-
+            'admin_email' => 'required|string|email|max:255|unique:users',
 
         ]);
         if($validator->fails()){
