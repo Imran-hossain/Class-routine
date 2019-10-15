@@ -12,31 +12,50 @@ use Tymon\JWTAuth\Facades\JWTFactory;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Tymon\JWTAuth\PayloadFactory;
+use Illuminate\Support\Str;
 use Tymon\JWTAuth\JWTManager as JWT;
 class UserController extends Controller
 {   
     public function register(Request $request)
     {
+
+        $admin = $request->json()->get('type');
+        if($admin == 'ADMIN'){
             $validator = Validator::make($request->json()->all() , [
             'name' => 'required|string|max:255',
+            'type' => 'required|string',
+            'ID' => 'required|string|max:10',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6', 
+
+
+
         ]);
         if($validator->fails()){
                 return response()->json($validator->errors()->toJson(), 400);
         }
         $user = User::create([
             'name' => $request->json()->get('name'),
+            'type' => $request->json()->get('type'),
+            'ID' => $request->json()->get('ID'),
             'email' => $request->json()->get('email'),
             'password' => Hash::make($request->json()->get('password')),
+            
         ]);
-        $token = JWTAuth::fromUser($user);
+
+        
+      $token = JWTAuth::fromUser($user);
         return response()->json(compact('user','token'),201);
+    }else{
+        echo "can't print";
+    }
     }
     
     public function login(Request $request)
     {
+
         $credentials = $request->json()->all();
+
         try {
             if (! $token = JWTAuth::attempt($credentials)) {
                 return response()->json(['error' => 'invalid_credentials'], 400);
@@ -44,6 +63,9 @@ class UserController extends Controller
         } catch (JWTException $e) {
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
+
+
+        $token= Str::random(255);
         return response()->json( compact('token') );
     }
     
