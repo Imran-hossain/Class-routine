@@ -19,39 +19,56 @@ class UserController extends Controller
     public function register(Request $request)
     {
 
-        $admin_email = $request->json()->get('admin_email');
-        $admin_token = $request->json()->get('admin_token');
-
-        if($admin_email == 'admin_email' &&  $admin_token =='admin_token'){
-
-            $validator = Validator::make($request->json()->all() , [
+          
+      //  $admin_token = $request->json()->get('admin_token');
+        
+         $validator = Validator::make($request->json()->all() , [
             'name' => 'required|string|max:255',
             'type' => 'required|string',
             'ID' => 'required|string|max:10',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6', 
-            'admin_email' => 'required|string|email|max:255|unique:users',
+            'admin_email' =>'required|string|max:255',
 
+            
         ]);
+
         if($validator->fails()){
                 return response()->json($validator->errors()->toJson(), 400);
-        }
-        $user = User::create([
+           }
+
+            $admin_email = $request->json()->get( 'admin_email');
+
+           $a=User::where('email', '=', $admin_email)->get();
+
+            //echo $a;
+
+            if(count($a) != 0){
+
+            $user = User::create([
             'name' => $request->json()->get('name'),
             'type' => $request->json()->get('type'),
             'ID' => $request->json()->get('ID'),
             'email' => $request->json()->get('email'),
             'password' => Hash::make($request->json()->get('password')),
-            
-        ]);
-
+            'admin_email'=>  $request->json()->get('admin_email'),   
+        ]); 
         
-      $token = JWTAuth::fromUser($user);
+        $token = JWTAuth::fromUser($user);
+
         return response()->json(compact('user','token'),201);
-    }else{
-        echo "can't print";
+    }else 
+    {
+        echo "SORRRYYYYY NO USER";
     }
-    }
+
+   
+
+
+}
+
+
+
     
     public function login(Request $request)
     {
@@ -87,3 +104,6 @@ class UserController extends Controller
         return response()->json(compact('user'));
     }
 }
+
+
+
