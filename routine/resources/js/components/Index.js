@@ -1,21 +1,16 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import Header from './Header';
-import Footer from './Footer';
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
+import Header from './admin/Header';
+import {  BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import Login from "./login/Login";
 
-
-export default class Index extends Component {
-    render() {
-        return (
-            <div >
-                <Header />
-                <Footer />
-            </div>
-        );
-    }
-}
-
-if (document.getElementById('app')) {
-    ReactDOM.render(<Router><Index /></Router>, document.getElementById('app'));
-}
+ReactDOM.render(
+  <Router>
+      <Switch>
+        <Route exact path='/' component={Login}/>
+        <Route path='/login' component={Login}/>
+        <Route path='/admin' component={Header}/>
+      </Switch>
+  </Router>,
+    document.getElementById('app')
+);

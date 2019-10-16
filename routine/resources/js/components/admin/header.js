@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import {BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
-import Home from './Home';
 import Dashboard from './Dashboard';
 import Group from './Group';
 import Location from './Location';
 import Member from './Member';
 import Routine from './Routine';
-import Error404 from './Error404';
-import Login from "./Login";
+import Error404 from '../Error404';
 export default class Header extends Component {
     render() {
         return (
@@ -18,7 +16,7 @@ export default class Header extends Component {
 
 <div id="wrapper">
     <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-        <Link className="sidebar-brand d-flex align-items-center justify-content-center" to="/">
+        <Link className="sidebar-brand d-flex align-items-center justify-content-center" to="/login">
             <div className="sidebar-brand-icon rotate-n-15">
               <i className="fas fa-laugh-wink" />
             </div>
@@ -44,29 +42,22 @@ export default class Header extends Component {
         <hr className="sidebar-divider my-0" />
         <li className="nav-item">
           <Link className="nav-link" to="/Group">
-            <i class="fas fa-users" />
+            <i className="fas fa-users" />
             <span>Groups</span>
           </Link>
         </li>
         <hr className="sidebar-divider my-0" />
         <li className="nav-item">
           <Link className="nav-link" to="/Location">
-            <i class="fas fa-map-marked-alt" />
+            <i className="fas fa-map-marked-alt" />
             <span>Locations</span>
           </Link>
         </li>
         <hr className="sidebar-divider my-0" />
         <li className="nav-item">
           <Link className="nav-link" to="/Member">
-            <i class="fas fa-male" />
+            <i className="fas fa-male" />
             <span>Member</span>
-          </Link>
-        </li>
-        <hr className="sidebar-divider my-0" />
-        <li className="nav-item">
-          <Link className="nav-link" to="/Login">
-            <i class="fas fa-male" />
-            <span>Login</span>
           </Link>
         </li>
 
@@ -85,13 +76,11 @@ export default class Header extends Component {
           </nav>
 
           <Switch>
-              <Route exact path='/' component={Home} />
               <Route exact path='/dashboard' component={Dashboard} />
               <Route exact path='/Group' component={Group} />
               <Route exact path='/Location' component={Location} />
               <Route exact path='/Routine' component={Routine} />
               <Route exact path='/Member' component={Member} />
-              <Route exact path="/login" exact component={Login} />
               <Route exact path="/*" component={Error404} />
           </Switch>
         </div>

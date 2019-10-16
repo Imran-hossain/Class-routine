@@ -17,9 +17,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/', function () {
+Route::get( '/{any}', function () {
     return view('index');
-});
+})->where('any', '.*');
 
 //Route::get('user1', "Example@index");
 Route::get('tasks', "TaskController@index");
