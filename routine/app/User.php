@@ -16,19 +16,13 @@ class User extends Eloquent implements JWTSubject, AuthenticatableContract
     
     protected $connection = 'mongodb';
     protected $collection = 'users';
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+    
+
     protected $fillable = [
-        'name','type', 'ID', 'email','password','admin_email',
+        'name','type', 'ID', 'email','password','token',
     ];
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
+    
+    
     protected $hidden = [
         'password', 'remember_token',
     ];
