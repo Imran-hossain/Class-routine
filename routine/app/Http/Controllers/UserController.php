@@ -82,7 +82,7 @@ class UserController extends Controller
         $user->token = $token;
         $user->save();
        
-       return response()->json( compact('user') );
+        return response()->json( compact('user') );
         
         }
 
