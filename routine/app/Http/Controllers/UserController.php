@@ -1,24 +1,25 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+//use JWTAuth;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Facades\JWTFactory;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Tymon\JWTAuth\PayloadFactory;
-use Illuminate\Support\Str;
 use Tymon\JWTAuth\JWTManager as JWT;
+
+
 class UserController extends Controller
 {   
     public function register(Request $request)
     {
 
-        
          $validator = Validator::make($request->json()->all() , [
 
             'name' => 'required|string|max:255',
@@ -32,12 +33,10 @@ class UserController extends Controller
 
         if($validator->fails()){
                 return response()->json($validator->errors()->toJson(), 400);
-
            }
 
         $admin_email = $request->json()->get( 'admin_email');
         $admin_token = $request->json()->get( 'admin_token');
-
 
         $data = User::where('email', '=', $admin_email)->Where('token', '=', $admin_token)->Where('type', '=', 'admin')->get();
 
@@ -53,31 +52,40 @@ class UserController extends Controller
 
         ]); 
         
-
         $token= Str::random(255);
         $user->token = $token;
         $user->save();
 
        return response()->json(compact('user'),201);
 
-}else{
-    echo "Only Admin can do it...."
-}
+    }
 }
 
     public function login(Request $request)
     {
 
+       
 
-        $email = $request->json()->get( 'email');
-        $user=User::where('email', '=', $email)->first();
+       
+        $email = $request->input('email');
+        $password = $request->input('password');
+    
+        $user = User::where('email', '=', $email)->first();
+        if (!$user) {
+        return response()->json(['success'=>false, 'message' => 'Login Fail, please check email id']);
+        }
+        if (!Hash::check($password, $user->password)) {
+        return response()->json(['success'=>false, 'message' => 'Login Fail, pls check password']);
+        }
+
         $token= Str::random(255);
         $user->token = $token;
         $user->save();
        
-        return response()->json( compact('user') );
-    }
-    
-  
-}
+       return response()->json( compact('user') );
+        
+        }
+
+
+    }   
 

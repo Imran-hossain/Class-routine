@@ -29,8 +29,6 @@ Route::put('tasks/{id}', "TaskController@update");
 Route::delete('tasks/{id}', "TaskController@delete");
 
 
-
-
 //user login registrations
 
 Route::post('register', 'UserController@register');
