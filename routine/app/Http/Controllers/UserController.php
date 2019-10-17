@@ -6,7 +6,6 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-//use JWTAuth;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Facades\JWTFactory;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -40,7 +39,7 @@ class UserController extends Controller
         $admin_token = $request->json()->get( 'admin_token');
 
 
-        $data = User::where('email', '=', $admin_email)->Where('token', '=', $admin_token)->get();
+        $data = User::where('email', '=', $admin_email)->Where('token', '=', $admin_token)->Where('type', '=', 'admin')->get();
 
            if(count($data) != 0){
 
@@ -67,19 +66,14 @@ class UserController extends Controller
     public function login(Request $request)
     {
 
-        $users = $request->json()->all();
 
-        try {
-            if (! $token = JWTAuth::attempt($users)) {
-                return response()->json(['error' => 'invalid_user'], 400);
-            }
-        } catch (JWTException $e) {
-            return response()->json(['error' => 'could_not_create_token'], 500);
-        }
-
-
-       // $token= Str::random(255);
-        return response()->json( compact('users') );
+        $email = $request->json()->get( 'email');
+        $user=User::where('email', '=', $email)->first();
+        $token= Str::random(255);
+        $user->token = $token;
+        $user->save();
+       
+        return response()->json( compact('user') );
     }
     
   

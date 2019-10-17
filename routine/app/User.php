@@ -2,7 +2,6 @@
 namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-//use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable  as AuthenticatableContract;
@@ -19,7 +18,7 @@ class User extends Eloquent implements JWTSubject, AuthenticatableContract
     
 
     protected $fillable = [
-        'name','type', 'ID', 'email','password','token',
+        'name','type', 'ID', 'email','password','admin_email','token',
     ];
     
     
