@@ -21,6 +21,7 @@ class UserController extends Controller
 
         
          $validator = Validator::make($request->json()->all() , [
+
             'name' => 'required|string|max:255',
             'type' => 'required|string',
             'ID' => 'required|string|max:10',
@@ -39,9 +40,9 @@ class UserController extends Controller
         $admin_token = $request->json()->get( 'admin_token');
 
 
-        $a = User::where('email', '=', $admin_email)->Where('token', '=', $admin_token)->get();
+        $data = User::where('email', '=', $admin_email)->Where('token', '=', $admin_token)->get();
 
-           if(count($a) != 0){
+           if(count($data) != 0){
 
             $user = User::create([
             'name' => $request->json()->get('name'),
@@ -58,7 +59,7 @@ class UserController extends Controller
         $user->token = $token;
         $user->save();
 
-       return response()->json(compact('user','token'),201);
+       return response()->json(compact('user'),201);
 
 }
 }
@@ -66,11 +67,11 @@ class UserController extends Controller
     public function login(Request $request)
     {
 
-        $credentials = $request->json()->all();
+        $users = $request->json()->all();
 
         try {
-            if (! $token = JWTAuth::attempt($credentials)) {
-                return response()->json(['error' => 'invalid_credentials'], 400);
+            if (! $token = JWTAuth::attempt($users)) {
+                return response()->json(['error' => 'invalid_user'], 400);
             }
         } catch (JWTException $e) {
             return response()->json(['error' => 'could_not_create_token'], 500);
@@ -78,23 +79,9 @@ class UserController extends Controller
 
 
        // $token= Str::random(255);
-        return response()->json( compact('token') );
+        return response()->json( compact('users') );
     }
     
-    public function getAuthenticatedUser()
-    {
-        try {
-            if (! $user = JWTAuth::parseToken()->authenticate()) {
-                return response()->json(['user_not_found'], 404);
-            }
-        } catch (Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
-            return response()->json(['token_expired'], $e->getStatusCode());
-        } catch (Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
-            return response()->json(['token_invalid'], $e->getStatusCode());
-        } catch (Tymon\JWTAuth\Exceptions\JWTException $e) {
-            return response()->json(['token_absent'], $e->getStatusCode());
-        }
-        return response()->json(compact('user'));
-    }
+  
 }
 

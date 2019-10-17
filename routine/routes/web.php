@@ -11,18 +11,9 @@
 |
 */
 
-Route::get('/', function () {
+Route::get('{slug}', function() {
     return view('index');
-});
-
-
-Route::get('/loginn', function () {
-    return view('index1');
-});
-
+})
+->where('slug', '(?!api)([A-z\d-\/_.]+)?');
+ 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-
-Route::get('user', "Example@index");
