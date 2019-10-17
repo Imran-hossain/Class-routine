@@ -74,16 +74,19 @@ class UserController extends Controller
         if (!$user) {
         return response()->json(['success'=>false, 'message' => 'Login Fail, please check email id']);
         }
-        if (!Hash::check($password, $user->password)) {
-        return response()->json(['success'=>false, 'message' => 'Login Fail, pls check password']);
+        if (Hash::check($password, $user->password)) {
+            $token= Str::random(255);
+            $user->token = $token;
+            $user->save();
+
+            return response()->json( compact('user') );
+        }
+        else
+        {
+            return response()->json(['success'=>false, 'message' => 'Login Fail, pls check password']);
         }
 
-        $token= Str::random(255);
-        $user->token = $token;
-        $user->save();
-       
-        return response()->json( compact('user') );
-        
+
         }
 
 
