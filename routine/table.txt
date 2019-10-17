@@ -38,3 +38,32 @@ export default class Table extends Component {
     );
   }
 }
+
+
+---->form
+
+ <div className=".col-sm-12 .col-lg-4 .col-md-8">
+          <form>
+            <div className="form-group">
+              <input
+                type="email"
+                className="form-control"
+                id="email"
+                placeholder="Enter email"
+                name="email"
+              />
+            </div>
+            <div className="form-group">
+              <input
+                type="password"
+                className="form-control"
+                id="pwd"
+                placeholder="Enter password"
+                name="pwd"
+              />
+            </div>
+            <button type="submit" className="btn btn-default">
+              Submit
+            </button>
+          </form>
+        </div> 
