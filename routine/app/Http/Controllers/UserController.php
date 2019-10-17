@@ -60,8 +60,6 @@ class UserController extends Controller
 
        return response()->json(compact('user'),201);
 
-}else{
-    echo "Only Admin can do it...."
 }
 }
 
