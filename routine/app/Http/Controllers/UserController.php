@@ -49,7 +49,8 @@ class UserController extends Controller
         $user->token = $token;
         $user->save();
 
-       return response()->json(compact('user'),201);
+        return $user;
+       //return response()->json(compact('user'),201);
 
     }
 }
@@ -69,7 +70,8 @@ class UserController extends Controller
             $user->token = $token;
             $user->save();
 
-            return response()->json( compact('user') );
+            return $user;
+            //return response()->json( compact('user') );
         }
         else
         {
@@ -77,6 +79,17 @@ class UserController extends Controller
         }
 
         }
+
+
+        public function member_list(Request $request)
+        {
+
+        $type = $request->input('type');
+        $user = User::where('type', '=', $type)->distinct('name')->get();
+        return $user;
+       // echo $user;
+
+    }
 
 
  }   
