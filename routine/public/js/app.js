@@ -73766,51 +73766,29 @@ function (_Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Login).call(this, props));
     _this.state = {
       error: null,
-      email: '',
-      password: '',
       user: []
     };
-    _this.handleEmail = _this.handleEmail.bind(_assertThisInitialized(_this));
-    _this.handlePassword = _this.handlePassword.bind(_assertThisInitialized(_this));
-    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(Login, [{
-    key: "handleEmail",
-    value: function handleEmail(e) {
-      this.setState({
-        email: e.target.value
-      });
-    }
-  }, {
-    key: "handlePassword",
-    value: function handlePassword(e) {
-      this.setState({
-        password: e.target.value
-      });
-    }
-  }, {
-    key: "handleSubmit",
-    value: function handleSubmit(event) {
+    key: "handleClick",
+    value: function handleClick() {
       var _this2 = this;
 
-      event.preventDefault();
-      console.log("Email: " + event.target[0].value);
-      console.log("Password: " + event.target[1].value);
-      var email = event.target[0].value;
-      var password = event.target[1].value;
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("http://127.0.0.1:8001/api/login", {
-        email: email,
-        password: password
+        "email": "rupa@gmail.com",
+        "password": "12345678"
       }).then(function (res) {
         var person = res.data;
-        console.log(res.data);
+        console.log(person.token);
 
-        if (person.user.token) {
+        if (person.token) {
           _this2.props.history.push('/admin');
         }
       });
+      /*      this.props.history.push('/admin');*/
     }
   }, {
     key: "render",
@@ -73832,7 +73810,7 @@ function (_Component) {
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "d-flex justify-content-center form_container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
-        onSubmit: this.handleSubmit
+        onSubmit: this.handleClick
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "input-group mb-3"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -73842,7 +73820,6 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-user"
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        onClick: this.handleEmail,
         type: "text",
         className: "form-control input_user",
         placeholder: "Email"
@@ -73855,7 +73832,6 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-key"
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        onClick: this.handlePassword,
         type: "password",
         className: "form-control input_pass",
         placeholder: "password"
@@ -73870,12 +73846,14 @@ function (_Component) {
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         className: "custom-control-label",
         htmlFor: "customControlInline"
-      }, "Remember me"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "submit",
+      }, "Remember me"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "d-flex justify-content-center mt-3 login_container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.handleClick,
+        type: "button",
         name: "button",
-        className: "btn login_btn",
-        value: "Login"
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "btn login_btn"
+      }, "Login")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "mt-4"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "d-flex justify-content-center links"
