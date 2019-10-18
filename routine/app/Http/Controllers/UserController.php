@@ -63,10 +63,6 @@ class UserController extends Controller
 
     public function login(Request $request)
     {
-
-       
-
-       
         $email = $request->input('email');
         $password = $request->input('password');
     
@@ -78,7 +74,6 @@ class UserController extends Controller
             $token= Str::random(255);
             $user->token = $token;
             $user->save();
-
             return response()->json( compact('user') );
         }
         else

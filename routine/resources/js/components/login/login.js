@@ -8,33 +8,46 @@ export default class Login extends Component {
     this.state = 
     { 
       error: null,
+      email:'',
+      password:'',
       user: []
     };
-    this.handleClick = this.handleClick.bind(this);
+    this.handleEmail = this.handleEmail.bind(this);
+    this.handlePassword = this.handlePassword.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleEmail(e){
+    this.setState({email: e.target.value});
+  }
+  handlePassword(e){
+    this.setState({password: e.target.value});
   }
 
 
+  handleSubmit(event) {
+    event.preventDefault();
 
-  handleClick() {
-      axios.post(`http://127.0.0.1:8001/api/login`,
-          {
-            "email":"rupa@gmail.com",
-            "password":"12345678"
-            
-          }
-        )
+    console.log("Email: " + event.target[0].value);
+    console.log("Password: " + event.target[1].value);
+
+    var email = event.target[0].value;
+    var password = event.target[1].value;
+
+      axios.post(`http://127.0.0.1:8001/api/login`,{
+            email, 
+            password
+          })
         .then(res => {
           let person = res.data;
-          console.log(person.token);
-          if (person.token) {
+          console.log(res.data);
+          if (person.user.token) {
             this.props.history.push('/admin');
           }
         })
-
-
-
-/*      this.props.history.push('/admin');*/
   }
+
+
 
     render() {
       return (
@@ -52,14 +65,14 @@ export default class Login extends Component {
                         </div>
                       </div>
                       <div className="d-flex justify-content-center form_container">
-                        <form onSubmit={this.handleClick}>
+                        <form onSubmit={this.handleSubmit}>
                           <div className="input-group mb-3">
                             <div className="input-group-append">
                               <span className="input-group-text">
                                 <i className="fas fa-user" />
                               </span>
                             </div>
-                            <input type="text"  className="form-control input_user"  placeholder="Email" />
+                            <input onClick={this.handleEmail} type="text"  className="form-control input_user"  placeholder="Email" />
                           </div>
                           <div className="input-group mb-2">
                             <div className="input-group-append">
@@ -67,7 +80,7 @@ export default class Login extends Component {
                                 <i className="fas fa-key" />
                               </span>
                             </div>
-                            <input type="password"  className="form-control input_pass"  placeholder="password" />
+                            <input onClick={this.handlePassword} type="password"  className="form-control input_pass"  placeholder="password" />
                           </div>
                           <div className="form-group">
                             <div className="custom-control custom-checkbox">
@@ -78,11 +91,7 @@ export default class Login extends Component {
                             </div>
                           </div>
 
-                          <div className="d-flex justify-content-center mt-3 login_container">
-                            <button onClick={this.handleClick}  type="button" name="button" className="btn login_btn">
-                              Login
-                            </button>
-                          </div>
+                            <input   type="submit" name="button" className="btn login_btn" value="Login"/>
 
                         </form>
                       </div>
