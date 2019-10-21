@@ -6,7 +6,7 @@ export default class Login extends Component {
   constructor(props) {
     super(props);
     this.state = 
-    { 
+    {
       error: null,
       email:'',
       password:'',
@@ -48,7 +48,15 @@ export default class Login extends Component {
           if (person.user.token) {
            localStorage.setItem('token', person.user.token);
            localStorage.setItem('email', person.user.email);
-           this.props.history.push('/admin');
+           localStorage.setItem('name', person.user.name);
+           localStorage.setItem('type', person.user.type);
+           if (person.user.type == 'admin') {
+             this.props.history.push('/admin');
+           }
+           else{
+             this.props.history.push('/student');
+           }
+           
 
           }
         })
