@@ -29,12 +29,19 @@ Route::put('tasks/{id}', "TaskController@update");
 Route::delete('tasks/{id}', "TaskController@delete");
 
 
-//user login registrations
+//User Login and Registrations
 
 Route::post('register', 'UserController@register');
 Route::post('login', 'UserController@login');
-Route::post('groups', 'UserController@groups');
-Route::get('profile', 'UserController@getAuthenticatedUser');
+//Route::get('profile', 'UserController@getAuthenticatedUser');
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+//Groups ADD,Delete,Update and show
+
+Route::post('groups_add', 'GroupController@groups_add');
+Route::post('groups_delete', 'GroupController@groups_delete');
+Route::post('groups_update', 'GroupController@groups_update');
+Route::post('groups_show', 'GroupController@groups_show');
+
