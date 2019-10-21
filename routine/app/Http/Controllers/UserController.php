@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 use App\User;
+use App\Location;
+use App\Class_routine;
+use App\Groups;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -86,14 +89,14 @@ class UserController extends Controller
 
     }
 
-    public function member_list(Request $request)
+    public function groups(Request $request)
 
     {
+        $admin_email = $request->json()->get( 'admin_email');
+        $admin_token = $request->json()->get( 'admin_token');
 
-        $type = $request->input('type');
-        // $email = User::where('type', '=', $type)->distinct('name')->get();
-        $email = User::where('type', '=', $type)->get();
-        $data = User::where('email', '=', $email)->Where('token', '=', $email)->Where('type', '=', 'admin')->get();
+        $data = User::where('email', '=', $admin_email)->Where('token', '=', $admin_token)->Where('type', '=', 'admin')->get();
+
         echo $data;
          
         }
