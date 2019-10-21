@@ -7,10 +7,20 @@ import Member from './Member';
 import Routine from './Routine';
 import Error404 from '../Error404';
 export default class Header extends Component {
+    loginCheck(){
+        if (localStorage.getItem("token") === null) {
+          this.props.history.push('/login');
+        }
+    } 
+
     render() {
         return (
+
+        {loginCheck()}
+
           <Router>
             <div>
+  }
 
 {/* This is done by shoikoth for left sidebar*/}
 
