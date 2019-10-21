@@ -20,6 +20,7 @@ class CreateClassRoutinesTable extends Migration
             $table->string('time');
             $table->string('teacher_name');
             $table->string('group_name');
+            $table->string('location');
             $table->rememberToken();
             $table->timestamps();
 

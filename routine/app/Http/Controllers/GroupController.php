@@ -8,10 +8,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Tymon\JWTAuth\Facades\JWTAuth;
-use Tymon\JWTAuth\Facades\JWTFactory;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Contracts\JWTSubject;
-use Tymon\JWTAuth\PayloadFactory;
 use Tymon\JWTAuth\JWTManager as JWT;
 
 
@@ -30,11 +26,14 @@ class GroupController extends Controller
     {
         $admin_email = $request->json()->get( 'admin_email');
         $admin_token = $request->json()->get( 'admin_token');
-        $user_email = $request->json()->get( 'email');
-         
-        User::where('email', '=', $user_email)->first();
+        $email = $request->json()->get( 'email');
 
+        $data = Groups::where('email', '=', $email)->get();
 
+        if(count($data) != 0){
+
+            return response()->json(['success'=>false, 'message' => 'Try Again']);
+        }
 
        if($this->realAuth($admin_email , $admin_token)){
 
@@ -60,12 +59,7 @@ class GroupController extends Controller
     {
         $admin_email = $request->json()->get( 'admin_email');
         $admin_token = $request->json()->get( 'admin_token');
-        $email = $request->json()->get( 'email');
-
-        $data = User::where('email', '=', $email)->get();
-        if(count($data) != 0){
-            return response()->json(['success'=>false, 'message' => 'fail']);
-        }
+        $email = $request->json()->get( 'email');  
           
     if($this->realAuth($admin_email , $admin_token)){
 
@@ -87,6 +81,13 @@ class GroupController extends Controller
         $email = $request->json()->get( 'email');
         $update_email = $request->json()->get( 'update_email');
         $update_group = $request->json()->get( 'update_group');
+
+        $data = Groups::where('email', '=', $email)->get();
+
+        if(count($data) != 0){
+
+            return response()->json(['success'=>false, 'message' => 'Same Mail Address...Enter different mail address']);
+        }
   
         if($this->realAuth($admin_email , $admin_token)){
             $user = Groups::where('email', '=', $email)->first();

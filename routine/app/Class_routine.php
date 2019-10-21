@@ -19,7 +19,7 @@ class Class_routine extends Eloquent implements JWTSubject, AuthenticatableContr
     
 
     protected $fillable = [
-        'time','teacher_name','group_name',
+        'time','teacher_name','group_name','location',
     ];
     
     public function getJWTIdentifier()
