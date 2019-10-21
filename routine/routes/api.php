@@ -40,8 +40,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 //Groups ADD,Delete,Update and show
 
+Route::post('groups_show', 'GroupController@groups_show');
 Route::post('groups_add', 'GroupController@groups_add');
 Route::post('groups_delete', 'GroupController@groups_delete');
 Route::post('groups_update', 'GroupController@groups_update');
-Route::post('groups_show', 'GroupController@groups_show');
 
+//Class ADD,Delete,Update and show
+
+Route::post('class_add', 'ClassController@class_add');
+Route::post('classroutine_add', 'ClassController@groups_add');
+Route::post('classroutine_delete', 'ClassController@groups_delete');
+Route::post('classroutine_update', 'ClassController@groups_update');

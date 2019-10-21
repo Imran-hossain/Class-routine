@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\User;
 use App\Groups;
+use App\Class_routine;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -15,7 +16,7 @@ use Tymon\JWTAuth\PayloadFactory;
 use Tymon\JWTAuth\JWTManager as JWT;
 
 
-class GroupController extends Controller
+class ClassController extends Controller
 {   
 
     public function realAuth($admin_email , $admin_token)
@@ -25,28 +26,25 @@ class GroupController extends Controller
         else return false;
     }
     
-    public function groups_add(Request $request)
+    public function class_add(Request $request)
 
     {
         $admin_email = $request->json()->get( 'admin_email');
         $admin_token = $request->json()->get( 'admin_token');
-        $user_email = $request->json()->get( 'email');
-         
-        User::where('email', '=', $user_email)->first();
-
-
 
        if($this->realAuth($admin_email , $admin_token)){
 
-            $group = Groups::create([
-            'email' => $request->json()->get('email'),
+            $classroutine = Class_routine::create([
+            'time' => $request->json()->get('time'),
+            'teacher_name' => $request->json()->get('teacher_name'),
+            'location' => $request->json()->get('location'),
             'group_name' => $request->json()->get('group_name'),
-            
         ]); 
         
-        $group->save();
+        $classroutine->save();
 
-       return response()->json(compact('group'),201);
+       return response()->json(compact('classroutine'),201);
+
     }
 
     else{
@@ -54,17 +52,16 @@ class GroupController extends Controller
         }
     } 
 
-
-    public function groups_delete(Request $request)
+    public function class_delete(Request $request)
 
     {
         $admin_email = $request->json()->get( 'admin_email');
         $admin_token = $request->json()->get( 'admin_token');
-        $email = $request->json()->get( 'email');
+        $group_name = $request->json()->get( 'group_name');
           
     if($this->realAuth($admin_email , $admin_token)){
 
-        $user = Groups::where('email', '=', $email)->first();
+        $user = Class_routine::where('email', '=', $email)->first();
         $user->delete();     
         return response()->json(['success'=>true, 'message' => 'done']);
 

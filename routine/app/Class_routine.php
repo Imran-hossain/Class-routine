@@ -22,8 +22,6 @@ class Class_routine extends Eloquent implements JWTSubject, AuthenticatableContr
         'time','teacher_name','group_name',
     ];
     
-    
- 
     public function getJWTIdentifier()
     {
         return $this->getKey();
