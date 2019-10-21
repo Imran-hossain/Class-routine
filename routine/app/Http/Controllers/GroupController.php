@@ -61,6 +61,11 @@ class GroupController extends Controller
         $admin_email = $request->json()->get( 'admin_email');
         $admin_token = $request->json()->get( 'admin_token');
         $email = $request->json()->get( 'email');
+
+        $data = User::where('email', '=', $email)->get();
+        if(count($data) != 0){
+            return response()->json(['success'=>false, 'message' => 'fail']);
+        }
           
     if($this->realAuth($admin_email , $admin_token)){
 
