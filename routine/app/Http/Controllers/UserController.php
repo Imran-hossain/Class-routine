@@ -64,9 +64,6 @@ class UserController extends Controller
     public function login(Request $request)
     {
 
-       
-
-       
         $email = $request->input('email');
         $password = $request->input('password');
     
@@ -81,14 +78,25 @@ class UserController extends Controller
 
             return response()->json( compact('user') );
         }
-        else
+        else 
         {
             return response()->json(['success'=>false, 'message' => 'Login Fail, pls check password']);
         }
 
 
-        }
+    }
 
+    public function member_list(Request $request)
+
+    {
+
+        $type = $request->input('type');
+        // $email = User::where('type', '=', $type)->distinct('name')->get();
+        $email = User::where('type', '=', $type)->get();
+        $data = User::where('email', '=', $email)->Where('token', '=', $email)->Where('type', '=', 'admin')->get();
+        echo $data;
+         
+        }
 
     }   
 
