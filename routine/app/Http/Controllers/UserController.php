@@ -20,6 +20,12 @@ use Tymon\JWTAuth\JWTManager as JWT;
 
 class UserController extends Controller
 {   
+    public function realAuth($email , $token)
+    {
+        $user = User::where('email', '=', $email)->Where('token', '=', $token)->Where('type', '=', 'admin')->get();
+        if(count($user) != 0) return true;
+        else return false;
+    }
     public function register(Request $request)
     {
 

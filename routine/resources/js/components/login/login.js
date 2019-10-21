@@ -31,8 +31,12 @@ export default class Login extends Component {
     console.log("Email: " + event.target[0].value);
     console.log("Password: " + event.target[1].value);
 
+
+
+
     var email = event.target[0].value;
     var password = event.target[1].value;
+    localStorage.setItem('password', password);
 
       axios.post(`http://127.0.0.1:8001/api/login`,{
             email, 
@@ -42,7 +46,10 @@ export default class Login extends Component {
           let person = res.data;
           console.log(res.data);
           if (person.user.token) {
-            this.props.history.push('/admin');
+           localStorage.setItem('token', person.user.token);
+           localStorage.setItem('email', person.user.email);
+           this.props.history.push('/admin');
+
           }
         })
   }
