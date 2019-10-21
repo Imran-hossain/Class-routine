@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 use App\User;
+use App\Location;
+use App\Class_routine;
+use App\Groups;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -17,15 +20,12 @@ use Tymon\JWTAuth\JWTManager as JWT;
 
 class UserController extends Controller
 {   
-
-
-    public function realAuth($admin_email , $admin_token)
+    public function realAuth($email , $token)
     {
-        $user = User::where('email', '=', $admin_email)->Where('token', '=', $admin_token)->Where('type', '=', 'admin')->get();
+        $user = User::where('email', '=', $email)->Where('token', '=', $token)->Where('type', '=', 'admin')->get();
         if(count($user) != 0) return true;
         else return false;
     }
-
     public function register(Request $request)
     {
 
@@ -49,7 +49,11 @@ class UserController extends Controller
 
         $data = User::where('email', '=', $admin_email)->Where('token', '=', $admin_token)->Where('type', '=', 'admin')->get();
 
-           if(count($data) != 0){
+           'admin_email'=>  $request->json()->get('admin_email'),  
+
+        ]);
+
+        if(count($data) != 0){
 
             $user = User::create([
             'name' => $request->json()->get('name'),
@@ -57,9 +61,7 @@ class UserController extends Controller
             'ID' => $request->json()->get('ID'),
             'email' => $request->json()->get('email'),
             'password' => Hash::make($request->json()->get('password')),
-            'admin_email'=>  $request->json()->get('admin_email'),  
-
-        ]); 
+            
         
         $token= Str::random(255);
         $user->token = $token;
@@ -99,19 +101,26 @@ class UserController extends Controller
 
     {
 
-       $admin_email = $request->json()->get( 'admin_email');
-       $admin_token = $request->json()->get( 'admin_token');
+        $admin_email = $request->json()->get( 'admin_email');
+        $admin_token = $request->json()->get( 'admin_token');
 
         if(realAuth($admin_email , $admin_token)){
 
+            $group = Groups::create([
+            'email' => $request->json()->get('email'),
+            'group_name' => $request->json()->get('group_name'),
+            
+            $group->save();
 
+            return response()->json(compact('group'),201);
             return response()->json(['message' => 'Group has been created']);
 
         } else 
         {
             return response()->json([ 'message' => 'Not Created ']);
         }
-         
+
+      
         }
 
     }   
