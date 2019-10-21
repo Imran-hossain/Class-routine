@@ -33,6 +33,7 @@ Route::delete('tasks/{id}', "TaskController@delete");
 
 Route::post('register', 'UserController@register');
 Route::post('login', 'UserController@login');
+Route::post('member_list', 'UserController@member_list');
 Route::get('profile', 'UserController@getAuthenticatedUser');
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

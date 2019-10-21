@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios";
 
-
 export default class Login extends Component {
 
   constructor(props) {
@@ -35,7 +34,7 @@ export default class Login extends Component {
     var email = event.target[0].value;
     var password = event.target[1].value;
 
-      axios.post(`./api/login`,{
+      axios.post(`http://127.0.0.1:8001/api/login`,{
             email, 
             password
           })
