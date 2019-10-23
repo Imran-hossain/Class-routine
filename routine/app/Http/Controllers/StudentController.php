@@ -24,18 +24,20 @@ class StudentController extends Controller
     }
     
     public function classroutine(Request $request)
-
     {
         $student_email = $request->json()->get( 'student_email');
         $student_token = $request->json()->get( 'student_token');
         //$email = $request->json()->get( 'email');
 
-       
 
        if($this->realAuth($student_email , $student_token)){
+        echo $student_email."\n".$student_token."\n\n\n";
 
-           $data = Groups::where('email', '=', $student_email)->distinct('email')->get(); 
-        	echo $data;
+        $data = Groups::where('email', '=', $student_email)->first(); 
+        $group_n = $data->group_name;
+
+        $routine = Class_routine::where('group_name', '=', $group_n)->first();
+        echo $routine;
 
     }else{
          return response()->json(['success'=>false, 'message' => 'not create']);
