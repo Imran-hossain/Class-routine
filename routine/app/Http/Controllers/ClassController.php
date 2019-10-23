@@ -27,6 +27,7 @@ class ClassController extends Controller
     {
         $admin_email = $request->json()->get( 'admin_email');
         $admin_token = $request->json()->get( 'admin_token');
+        
 
        if($this->realAuth($admin_email , $admin_token)){
 

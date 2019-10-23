@@ -35,3 +35,7 @@ Route::post('classroutine_show', 'ClassController@classroutine_show');
 Route::post('classroutine_add', 'ClassController@classroutine_add');
 Route::post('classroutine_delete', 'ClassController@classroutine_delete');
 Route::post('classroutine_update', 'ClassController@classroutine_update');
+
+//Student Details
+
+Route::post('classroutine', 'StudentController@classroutine');

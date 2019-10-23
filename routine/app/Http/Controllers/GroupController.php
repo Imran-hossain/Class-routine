@@ -17,7 +17,7 @@ class GroupController extends Controller
     public function realAuth($admin_email , $admin_token)
     {
         $user = User::where('email', '=', $admin_email)->Where('token', '=', $admin_token)->Where('type', '=', 'admin')->get();
-        if(count($user) != 0) return true;
+        if(!empty($user) != 0) return true;
         else return false;
     }
     
