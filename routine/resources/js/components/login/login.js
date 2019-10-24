@@ -38,7 +38,7 @@ export default class Login extends Component {
     var password = event.target[1].value;
     localStorage.setItem('password', password);
 
-      axios.post(`http://127.0.0.1:8001/api/login`,{
+      axios.post(`/api/login`,{
             email, 
             password
           })
