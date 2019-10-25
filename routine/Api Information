@@ -1,0 +1,22 @@
+User Controller
+•	Registration (Only Admin)
+•	Login (user or Admin)
+•	User CRUD (Admin or User)
+Student Controller:
+•	Time
+•	Teacher name
+•	Group name
+•	Location
+Class routine Controller
+•	CRUD
+Group Controller
+•	CRUD
+Student Controller (Show)
+•	Time
+•	Teacher name
+•	Group/_name
+•	Location
+
+
+
+
