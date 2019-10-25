@@ -1,7 +1,7 @@
 #HELPS
 
 DND React
-https://reactjsexample.com/react-drag-and-drop-framework-with-inbuilt-virtualizing-scrollbars/
+https://egghead.io/lessons/react-move-items-between-columns-with-react-beautiful-dnd-using-ondragend
 
 #API Help
 https://qiita.com/ekzemplaro/items/609fe7a5869a499b298d
