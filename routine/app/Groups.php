@@ -9,23 +9,21 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Database\Eloquent\Model;
 use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 
-class User extends Eloquent implements JWTSubject, AuthenticatableContract
+class Groups extends Eloquent implements JWTSubject, AuthenticatableContract
 {
     use Notifiable;
     use Authenticatable;
     
     protected $connection = 'mongodb';
-    protected $collection = 'users';
+    protected $collection = 'groups';
     
 
     protected $fillable = [
-        'name','type', 'ID', 'email','password','admin_email','token',
+        'email','group_name',
     ];
     
     
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+ 
     public function getJWTIdentifier()
     {
         return $this->getKey();

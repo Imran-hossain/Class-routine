@@ -2,16 +2,6 @@
 
 use Illuminate\Http\Request;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
@@ -21,21 +11,31 @@ Route::get( '/{any}', function () {
     return view('index');
 })->where('any', '.*');
 
-//Route::get('user1', "Example@index");
-Route::get('tasks', "TaskController@index");
-Route::get('tasks/{id}', "TaskController@show");
-Route::post('tasks', "TaskController@store");
-Route::put('tasks/{id}', "TaskController@update");
-Route::delete('tasks/{id}', "TaskController@delete");
 
 
-
-
-//user login registrations
+//User Login and Registrations
 
 Route::post('register', 'UserController@register');
 Route::post('login', 'UserController@login');
-Route::get('profile', 'UserController@getAuthenticatedUser');
+//Route::get('profile', 'UserController@getAuthenticatedUser');
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+//Groups ADD,Delete,Update and show
+
+Route::post('groups_show', 'GroupController@groups_show');
+Route::post('groups_add', 'GroupController@groups_add');
+Route::post('groups_delete', 'GroupController@groups_delete');
+Route::post('groups_update', 'GroupController@groups_update');
+
+//Class ADD,Delete,Update and show
+
+Route::post('classroutine_show', 'ClassController@classroutine_show');
+Route::post('classroutine_add', 'ClassController@classroutine_add');
+Route::post('classroutine_delete', 'ClassController@classroutine_delete');
+Route::post('classroutine_update', 'ClassController@classroutine_update');
+
+//Student Details
+
+Route::post('classroutine', 'StudentController@classroutine');
