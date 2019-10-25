@@ -17,10 +17,16 @@ Route::get( '/{any}', function () {
 
 Route::post('register', 'UserController@register');
 Route::post('login', 'UserController@login');
+
 //Route::get('profile', 'UserController@getAuthenticatedUser');
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+//user
+Route::post('user_show', 'UserController@user_show');
+Route::post('user_delete', 'UserController@user_delete');
+Route::post('user_update', 'UserController@user_update');
 
 //Groups ADD,Delete,Update and show
 

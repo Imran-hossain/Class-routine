@@ -89,6 +89,76 @@ class UserController extends Controller
             return response()->json(['success'=>false, 'message' => 'Login Fail, pls check password']);
         }
     }
+
+
+
+
+
+
+     public function user_show(Request $request)
+
+    {
+        $admin_email = $request->json()->get( 'admin_email');
+        $admin_token = $request->json()->get( 'admin_token');
+        $type  = $request->json()->get( 'type');
+        if($this->realAuth($admin_email , $admin_token)){
+       
+       $data = User::where('type', '=', $type)->distinct('name')->get(); 
+        echo $data;
+       }
+       else
+       {
+             return response()->json(['success'=>false, 'message' => 'fail']);
+    }
+
+    } 
+
+
+    public function user_delete(Request $request)
+
+    {
+        $admin_email = $request->json()->get( 'admin_email');
+        $admin_token = $request->json()->get( 'admin_token');
+        $email = $request->json()->get( 'email');  
+          
+    if($this->realAuth($admin_email , $admin_token)){
+
+        $user = User::where('email', '=', $email)->first();
+        $user->delete();     
+        return response()->json(['success'=>true, 'message' => 'done']);
+
+    }else{
+             return response()->json(['success'=>false, 'message' => 'fail']);
+        }
+
+    } 
+
+    public function user_update(Request $request)
+
+    {
+        $admin_email = $request->json()->get( 'admin_email');
+        $admin_token = $request->json()->get( 'admin_token');
+        $email = $request->json()->get( 'email');
+        $update_email = $request->json()->get( 'update_email');
+
+   
+
+
+        if($this->realAuth($admin_email , $admin_token)){
+
+            $user = User::where('email', '=', $email)->first();
+             echo $user;
+
+            $user->email = $update_email;
+            $user->save();
+            return response()->json(['success'=>true, 'message' => 'done']);
+       }
+       else
+       {
+             return response()->json(['success'=>false, 'message' => 'fail']);
+        }
+    } 
+
    
 
 }

@@ -111,7 +111,7 @@ class GroupController extends Controller
         
         if($this->realAuth($admin_email , $admin_token)){
        
-        $users = Groups::all();
+        $users = Groups::distinct('group_name')->get();
         echo $users;
        }
        else
