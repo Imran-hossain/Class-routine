@@ -106,7 +106,7 @@ export default class Login extends Component {
                             </div>
                           </div>
 
-                            <input   type="submit" name="button" className="btn login_btn" value="Login"/>
+                            <input onclick="this.disabled=true;this.value='Submitting...'; this.form.submit();"   type="submit" name="button" className="btn login_btn" value="Login"/>
 
                         </form>
                       </div>
