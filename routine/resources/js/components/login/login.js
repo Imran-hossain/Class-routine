@@ -7,6 +7,7 @@ export default class Login extends Component {
     super(props);
     this.state = 
     {
+      disabled: false,
       error: null,
       email:'',
       password:'',
@@ -15,6 +16,7 @@ export default class Login extends Component {
     this.handleEmail = this.handleEmail.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+
   }
 
   handleEmail(e){
@@ -23,10 +25,22 @@ export default class Login extends Component {
   handlePassword(e){
     this.setState({password: e.target.value});
   }
+  loginCheck(){
+      if (localStorage.getItem("token") != null) {
+          if(localStorage.getItem("type")=='student' ){
+            this.props.history.push('/student');
+          }
+          else if(localStorage.getItem("type")=='admin' ){
+            this.props.history.push('/admin');
+          }
+      }
+
+    }
 
 
   handleSubmit(event) {
     event.preventDefault();
+    this.setState( {disabled: !this.state.disabled} );
 
     console.log("Email: " + event.target[0].value);
     console.log("Password: " + event.target[1].value);
@@ -97,16 +111,7 @@ export default class Login extends Component {
                             </div>
                             <input onClick={this.handlePassword} type="password"  className="form-control input_pass"  placeholder="password" />
                           </div>
-                          <div className="form-group">
-                            <div className="custom-control custom-checkbox">
-                              <input  type="checkbox" className="custom-control-input" id="customControlInline" />
-                              <label className="custom-control-label" htmlFor="customControlInline" >
-                                Remember me
-                              </label>
-                            </div>
-                          </div>
-
-                            <input onclick="this.disabled=true;this.value='Submitting...'; this.form.submit();"   type="submit" name="button" className="btn login_btn" value="Login"/>
+                            <input disabled = {(this.state.disabled)? "disabled" : ""}   type="submit" name="button" className="btn login_btn" value="Login"/>
 
                         </form>
                       </div>
