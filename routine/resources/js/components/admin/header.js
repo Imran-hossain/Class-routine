@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 import Dashboard from './Dashboard';
-import Group from './Group';
+import Group from './group/index';
 import Location from './Location';
 import Member from './Member';
 import Routine from './Routine';
@@ -167,7 +167,7 @@ export default class Header extends Component {
               <div>
                 <div className="small text-gray-500">December 12, 2019</div>
                 <span className="font-weight-bold">
-                  A new monthly report is ready to download!
+                  This is just a Idea for Future
                 </span>
               </div>
             </a>
@@ -179,7 +179,7 @@ export default class Header extends Component {
               </div>
               <div>
                 <div className="small text-gray-500">December 7, 2019</div>
-                $290.29 has been deposited into your account!
+                This is just a Idea for Future
               </div>
             </a>
             <a className="dropdown-item d-flex align-items-center" href="#">
@@ -190,8 +190,7 @@ export default class Header extends Component {
               </div>
               <div>
                 <div className="small text-gray-500">December 2, 2019</div>
-                Spending Alert: We've noticed unusually high spending for your
-                account.
+                This is just a Idea for Future
               </div>
             </a>
             <a
@@ -227,14 +226,13 @@ export default class Header extends Component {
               <div className="dropdown-list-image mr-3">
                 <img
                   className="rounded-circle"
-                  src="https://source.unsplash.com/fn_BT9fwg_E/60x60"
+                  src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp"
                 />
                 <div className="status-indicator bg-success" />
               </div>
               <div className="font-weight-bold">
                 <div className="text-truncate">
-                  Hi there! I am wondering if you can help me with a problem
-                  I've been having.
+                  This is for future
                 </div>
                 <div className="small text-gray-500">Emily Fowler · 58m</div>
               </div>
@@ -249,8 +247,7 @@ export default class Header extends Component {
               </div>
               <div>
                 <div className="text-truncate">
-                  I have the photos that you ordered last month, how would you
-                  like them sent to you?
+                  This is for future
                 </div>
                 <div className="small text-gray-500">Jae Chun · 1d</div>
               </div>
@@ -265,8 +262,7 @@ export default class Header extends Component {
               </div>
               <div>
                 <div className="text-truncate">
-                  Last month's report looks great, I am very happy with the
-                  progress so far, keep up the good work!
+                  This is for future
                 </div>
                 <div className="small text-gray-500">Morgan Alvarez · 2d</div>
               </div>
@@ -275,14 +271,13 @@ export default class Header extends Component {
               <div className="dropdown-list-image mr-3">
                 <img
                   className="rounded-circle"
-                  src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
+                  src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp"
                 />
                 <div className="status-indicator bg-success" />
               </div>
               <div>
                 <div className="text-truncate">
-                  Am I a good boy? The reason I ask is because someone told me
-                  that people say this to all dogs, even if they aren't good...
+                  This is for future
                 </div>
                 <div className="small text-gray-500">Chicken the Dog · 2w</div>
               </div>
@@ -349,6 +344,8 @@ export default class Header extends Component {
           </nav>
 
           <Switch>
+              <Route exact path='/admin' component={Dashboard} />
+              <Route exact path='/login' component={Dashboard} />
               <Route exact path='/dashboard' component={Dashboard} />
               <Route exact path='/Group' component={Group} />
               <Route exact path='/Location' component={Location} />
