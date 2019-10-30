@@ -101,6 +101,7 @@ class UserController extends Controller
         $admin_email = $request->json()->get( 'admin_email');
         $admin_token = $request->json()->get( 'admin_token');
         $type  = $request->json()->get( 'type');
+
         if($this->realAuth($admin_email , $admin_token)){
        
        $data = User::where('type', '=', $type)->distinct('name')->get(); 
@@ -139,6 +140,7 @@ class UserController extends Controller
         $admin_email = $request->json()->get( 'admin_email');
         $admin_token = $request->json()->get( 'admin_token');
         $email = $request->json()->get( 'email');
+        
         $update_email = $request->json()->get( 'update_email');
 
    
