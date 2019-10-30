@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use App\User;
 use App\Groups;
-use App\Class_routine;
+use App\Location;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -12,36 +12,41 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\JWTManager as JWT;
 
 
-class ClassController extends Controller
+class LocationController extends Controller
 {   
 
-    public function realAuth($admin_email , $admin_token)
+   public function realAuth($admin_email , $admin_token)
     {
         $user = User::where('email', '=', $admin_email)->Where('token', '=', $admin_token)->Where('type', '=', 'admin')->get();
         if(count($user) != 0) return true;
         else return false;
     }
     
-    public function classroutine_add(Request $request)
+    public function location_add(Request $request)
 
     {
         $admin_email = $request->json()->get( 'admin_email');
         $admin_token = $request->json()->get( 'admin_token');
-        
+        $group_name = $request->json()->get( 'group_name');
+
+        $data = Groups::where('group_name', '=', $group_name)->get();
+
+        if(count($data) != 0){
+
+            return response()->json(['success'=>false, 'message' => 'Try Again']);
+        }
 
        if($this->realAuth($admin_email , $admin_token)){
 
-            $classroutine = Class_routine::create([
-            'time' => $request->json()->get('time'),
-            'teacher_name' => $request->json()->get('teacher_name'),
-            'location' => $request->json()->get('location'),
-            'group_name' => $request->json()->get('group_name'),
+            $location = Location::create([
+            'building_name' => $request->json()->get('building_name'),
+            'link' => $request->json()->get('link'),
+            
         ]); 
         
-        $classroutine->save();
+        $location->save();
 
-       return response()->json(compact('classroutine'),201);
-
+       return response()->json(compact('location'),201);
     }
 
     else{
@@ -49,16 +54,17 @@ class ClassController extends Controller
         }
     } 
 
-    public function classroutine_delete(Request $request)
+
+    public function location_delete(Request $request)
 
     {
         $admin_email = $request->json()->get( 'admin_email');
         $admin_token = $request->json()->get( 'admin_token');
-        $group_name = $request->json()->get( 'group_name');
+        $email = $request->json()->get( 'email');  
           
     if($this->realAuth($admin_email , $admin_token)){
 
-        $user = Class_routine::where('group_name', '=', $group_name)->first();
+        $user = Groups::where('email', '=', $email)->first();
         $user->delete();     
         return response()->json(['success'=>true, 'message' => 'done']);
 
@@ -68,27 +74,24 @@ class ClassController extends Controller
 
     } 
 
-    public function classroutine_update(Request $request)
+    public function location_update(Request $request)
 
     {
         $admin_email = $request->json()->get( 'admin_email');
         $admin_token = $request->json()->get( 'admin_token');
-        $group_name = $request->json()->get( 'group_name');
-        
-        $update_time = $request->json()->get( 'update_time');
-        $update_teachername = $request->json()->get( 'update_teachername');
-        $update_group_name = $request->json()->get( 'update_group_name');
-        $update_location = $request->json()->get( 'update_location');
-      
+        $email = $request->json()->get( 'email');
+        $update_email = $request->json()->get( 'update_email');
+        $update_group = $request->json()->get( 'update_group');
+
+        $data = Groups::where('email', '=', $email)->get();
+
+       
   
-            if($this->realAuth($admin_email , $admin_token)){
-            $user = Class_routine::where('group_name', '=', $group_name)->first();
+        if($this->realAuth($admin_email , $admin_token)){
+            $user = Groups::where('email', '=', $email)->first();
 
-            $user->time = $update_time;
-            $user->teacher_name =  $update_teachername;
-            $user->group_name = $update_group_name;
-            $user->location = $update_location;
-
+            $user->email = $update_email;
+            $user->group_name = $update_group;
             $user->save();
             return response()->json(['success'=>true, 'message' => 'done']);
        }
@@ -98,7 +101,7 @@ class ClassController extends Controller
         }
     } 
 
-     public function classroutine_show(Request $request)
+     public function location_show(Request $request)
 
     {
         $admin_email = $request->json()->get( 'admin_email');
@@ -106,7 +109,7 @@ class ClassController extends Controller
         
         if($this->realAuth($admin_email , $admin_token)){
        
-        $users = Class_routine::all();
+        $users = Groups::distinct('group_name')->get();
         echo $users;
        }
        else
