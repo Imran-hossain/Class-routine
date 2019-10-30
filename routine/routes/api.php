@@ -31,9 +31,18 @@ Route::post('user_update', 'UserController@user_update');
 //Groups ADD,Delete,Update and show
 
 Route::post('groups_show', 'GroupController@groups_show');
+Route::post('groups_list', 'GroupController@groups_list');
 Route::post('groups_add', 'GroupController@groups_add');
 Route::post('groups_delete', 'GroupController@groups_delete');
 Route::post('groups_update', 'GroupController@groups_update');
+
+//location
+
+Route::post('location_show', 'LocationController@location_show');
+Route::post('location_add', 'LocationController@location_add');
+Route::post('location_delete', 'LocationController@location_delete');
+Route::post('location_update', 'LocationController@location_update');
+
 
 //Class ADD,Delete,Update and show
 

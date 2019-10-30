@@ -14,10 +14,10 @@ use Tymon\JWTAuth\JWTManager as JWT;
 class GroupController extends Controller
 {   
 
-    public function realAuth($admin_email , $admin_token)
+   public function realAuth($admin_email , $admin_token)
     {
         $user = User::where('email', '=', $admin_email)->Where('token', '=', $admin_token)->Where('type', '=', 'admin')->get();
-        if(!empty($user) != 0) return true;
+        if(count($user) != 0) return true;
         else return false;
     }
     
@@ -84,10 +84,7 @@ class GroupController extends Controller
 
         $data = Groups::where('email', '=', $email)->get();
 
-        if(count($data) != 0){
-
-            return response()->json(['success'=>false, 'message' => 'Same Mail Address...Enter different mail address']);
-        }
+       
   
         if($this->realAuth($admin_email , $admin_token)){
             $user = Groups::where('email', '=', $email)->first();
@@ -112,6 +109,23 @@ class GroupController extends Controller
         if($this->realAuth($admin_email , $admin_token)){
        
         $users = Groups::distinct('group_name')->get();
+        echo $users;
+       }
+       else
+       {
+             return response()->json(['success'=>false, 'message' => 'fail']);
+        }
+
+    }
+    public function groups_list(Request $request)
+
+    {
+        $admin_email = $request->json()->get( 'admin_email');
+        $admin_token = $request->json()->get( 'admin_token');
+        
+        if($this->realAuth($admin_email , $admin_token)){
+       
+        $users = Groups::where('email', '!=', '')->get();
         echo $users;
        }
        else

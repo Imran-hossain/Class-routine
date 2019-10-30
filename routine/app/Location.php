@@ -19,7 +19,7 @@ class Location extends Eloquent implements JWTSubject, AuthenticatableContract
     
 
     protected $fillable = [
-        'building_name','x', 'y','group_name',
+        'building_name','link','group_name',
     ];
     
     
