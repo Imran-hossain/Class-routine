@@ -6,7 +6,7 @@ import styled from 'styled-components'
 
 import initialData from './initial-data'
 import Column from './column'
-
+//import axios from "axios";
 
 const Container = styled.div`
   display:flex;
@@ -76,6 +76,26 @@ export default class Group extends React.Component {
       ...finish,
       taskIds: finishTaskIds
     }
+    const admin_token = localStorage.getItem("token");
+    const admin_email = localStorage.getItem("email");
+    const update_group = destination.droppableId;
+    console.log(update_group);
+    console.log(finishTaskIds);
+    Object.keys(finishTaskIds).forEach(function (item) {
+            var email = finishTaskIds[item];
+            var update_email  = email;
+            axios.post(`/api/groups_update`,{
+                admin_email,
+                admin_token,
+                email,
+                update_email,
+                update_group
+            }).then(res => {
+              let result = res.data;
+            })
+
+    });
+
 
     const newState = {
       ...this.state,
@@ -86,6 +106,7 @@ export default class Group extends React.Component {
       }
     }
     this.setState(newState)
+    initialData = state
   }
 
   render() {

@@ -23,18 +23,7 @@ const admin_token = localStorage.getItem("token");
 const admin_email = localStorage.getItem("email");
 
 
-axios.post(`/api/groups_show`,{
-        admin_email,
-        admin_token
-    })
-    .then(res => {
-      let groups = res.data;
-      console.log(groups);
 
-      Object.keys(groups).forEach(function (item) {
-
-      });
-    })
 
 axios.post(`/api/groups_list`,{
         admin_email,
@@ -47,7 +36,7 @@ axios.post(`/api/groups_list`,{
 
       Object.keys(groups).forEach(function (item) {
         var student_email = groups[item].email;
-        var student_group = 'column-'+groups[item].group_name;
+        var student_group = groups[item].group_name;
         console.log(student_email+student_group);
         if(!initialData.columnOrder.includes(student_group))
         {

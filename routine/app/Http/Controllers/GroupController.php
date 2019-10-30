@@ -108,7 +108,7 @@ class GroupController extends Controller
         
         if($this->realAuth($admin_email , $admin_token)){
        
-        $users = Groups::distinct('group_name')->get();
+        $users = Groups::orderBy('group_name','asc')->get(['group_name']);
         echo $users;
        }
        else
@@ -125,7 +125,7 @@ class GroupController extends Controller
         
         if($this->realAuth($admin_email , $admin_token)){
        
-        $users = Groups::where('email', '!=', '')->get();
+        $users = Groups::orderBy('group_name','asc')->get();
         echo $users;
        }
        else

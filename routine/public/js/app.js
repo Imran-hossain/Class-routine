@@ -78912,7 +78912,7 @@ function warning(message) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, __RouterContext, generatePath, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, __RouterContext, generatePath, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -89635,6 +89635,7 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 
 
+ //import axios from "axios";
 
 var Container = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject());
 
@@ -89703,11 +89704,32 @@ function (_React$Component) {
         taskIds: finishTaskIds
       });
 
+      var admin_token = localStorage.getItem("token");
+      var admin_email = localStorage.getItem("email");
+      var update_group = destination.droppableId;
+      console.log(update_group);
+      console.log(finishTaskIds);
+      Object.keys(finishTaskIds).forEach(function (item) {
+        var email = finishTaskIds[item];
+        var update_email = email;
+        axios.post("/api/groups_update", {
+          admin_email: admin_email,
+          admin_token: admin_token,
+          email: email,
+          update_email: update_email,
+          update_group: update_group
+        }).then(function (res) {
+          var result = res.data;
+        });
+      });
+
       var newState = _objectSpread({}, _this.state, {
         columns: _objectSpread({}, _this.state.columns, (_objectSpread3 = {}, _defineProperty(_objectSpread3, newStart.id, newStart), _defineProperty(_objectSpread3, newFinish.id, newFinish), _objectSpread3))
       });
 
       _this.setState(newState);
+
+      initialData = state;
     });
 
     return _this;
@@ -89773,14 +89795,6 @@ var initialData = {
 };
 var admin_token = localStorage.getItem("token");
 var admin_email = localStorage.getItem("email");
-axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/groups_show", {
-  admin_email: admin_email,
-  admin_token: admin_token
-}).then(function (res) {
-  var groups = res.data;
-  console.log(groups);
-  Object.keys(groups).forEach(function (item) {});
-});
 axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/groups_list", {
   admin_email: admin_email,
   admin_token: admin_token
@@ -89790,7 +89804,7 @@ axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/groups_list", {
   console.log(groups);
   Object.keys(groups).forEach(function (item) {
     var student_email = groups[item].email;
-    var student_group = 'column-' + groups[item].group_name;
+    var student_group = groups[item].group_name;
     console.log(student_email + student_group);
 
     if (!initialData.columnOrder.includes(student_group)) {
