@@ -7,6 +7,7 @@ import styled from 'styled-components'
 import initialData from './initial-data'
 import Column from './column'
 
+
 const Container = styled.div`
   display:flex;
 `
@@ -14,7 +15,14 @@ const Container = styled.div`
 
 export default class Group extends React.Component {
   state = initialData
+  constructor(props) {
+    super(props);
 
+    //this.getData = this.getData.bind(this);
+  }
+
+
+  
   onDragEnd = result => {
     const { destination, source, draggableId } = result
 
@@ -82,20 +90,21 @@ export default class Group extends React.Component {
 
   render() {
     return (
-      <DragDropContext onDragEnd={this.onDragEnd}>
-        <Container>
-          {this.state.columnOrder.map(columnId => {
-            const column = this.state.columns[columnId]
-            const tasks = column.taskIds.map(
-              taskId => this.state.tasks[taskId]
-            )
+        
+        <DragDropContext onDragEnd={this.onDragEnd}>
+          <Container>
+            {this.state.columnOrder.map(columnId => {
+              const column = this.state.columns[columnId]
+              const tasks = column.taskIds.map(
+                taskId => this.state.tasks[taskId]
+              )
 
-            return (
-              <Column key={column.id} column={column} tasks={tasks} />
-            )
-          })}
-        </Container>
-      </DragDropContext>
+              return (
+                <Column key={column.id} column={column} tasks={tasks} />
+              )
+            })}
+          </Container>
+        </DragDropContext>
     )
   }
 }

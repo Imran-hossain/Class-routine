@@ -89643,18 +89643,12 @@ var Group =
 function (_React$Component) {
   _inherits(Group, _React$Component);
 
-  function Group() {
-    var _getPrototypeOf2;
-
+  function Group(props) {
     var _this;
 
     _classCallCheck(this, Group);
 
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Group)).call.apply(_getPrototypeOf2, [this].concat(args)));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Group).call(this, props)); //this.getData = this.getData.bind(this);
 
     _defineProperty(_assertThisInitialized(_this), "state", _initial_data__WEBPACK_IMPORTED_MODULE_5__["default"]);
 
@@ -89756,59 +89750,66 @@ function (_React$Component) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var admin_token = localStorage.getItem("token");
-var admin_email = localStorage.getItem("email");
-axios.post("/api/groups_list", {
-  email: email,
-  token: token
-}).then(function (res) {
-  var group = res.data;
-  console.log("working");
-  console.log(res);
-});
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
 var initialData = {
   tasks: {
     'task-1': {
       id: 'task-1',
-      content: 'Shoikot'
-    },
-    'task-2': {
-      id: 'task-2',
-      content: 'Rupa'
-    },
-    'task-3': {
-      id: 'task-3',
-      content: 'Rajeeb'
-    },
-    'task-4': {
-      id: 'task-4',
-      content: 'Sumi'
-    },
-    'task-5': {
-      id: 'task-5',
-      content: 'Mahidul'
+      content: 'Shoikot',
+      group: '1'
     }
   },
   columns: {
-    'column-1': {
-      id: 'column-1',
-      title: 'Group 1',
-      taskIds: ['task-1', 'task-2']
-    },
-    'column-2': {
-      id: 'column-2',
-      title: 'Group 2',
-      taskIds: ['task-3', 'task-4']
-    },
-    'column-3': {
-      id: 'column-3',
-      title: 'Group 3',
-      taskIds: ['task-5']
+    'column-0': {
+      id: 'column-0',
+      title: 'Inactive Students',
+      taskIds: ['task-1']
     }
   },
   // Facilitate reordering of the columns
-  columnOrder: ['column-1', 'column-2', 'column-3']
+  columnOrder: ['column-0']
 };
+var admin_token = localStorage.getItem("token");
+var admin_email = localStorage.getItem("email");
+axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/groups_show", {
+  admin_email: admin_email,
+  admin_token: admin_token
+}).then(function (res) {
+  var groups = res.data;
+  console.log(groups);
+  Object.keys(groups).forEach(function (item) {});
+});
+axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/groups_list", {
+  admin_email: admin_email,
+  admin_token: admin_token
+}).then(function (res) {
+  var groups = res.data; //initialData.tasks['task-5'] = { id: 'task-5', content: groups[0].email }
+
+  console.log(groups);
+  Object.keys(groups).forEach(function (item) {
+    var student_email = groups[item].email;
+    var student_group = 'column-' + groups[item].group_name;
+    console.log(student_email + student_group);
+
+    if (!initialData.columnOrder.includes(student_group)) {
+      initialData.columns[student_group] = {
+        id: student_group,
+        title: 'Group_' + groups[item].group_name,
+        taskIds: []
+      };
+      initialData.columnOrder.push(student_group);
+    }
+
+    initialData.tasks[student_email] = {
+      id: student_email,
+      content: student_email,
+      group: groups[item].group_name
+    };
+    initialData.columns[student_group].taskIds.push(student_email);
+  });
+});
 /* harmony default export */ __webpack_exports__["default"] = (initialData);
 
 /***/ }),
