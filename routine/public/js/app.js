@@ -89756,6 +89756,16 @@ function (_React$Component) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+var admin_token = localStorage.getItem("token");
+var admin_email = localStorage.getItem("email");
+axios.post("/api/groups_list", {
+  email: email,
+  token: token
+}).then(function (res) {
+  var group = res.data;
+  console.log("working");
+  console.log(res);
+});
 var initialData = {
   tasks: {
     'task-1': {
@@ -89793,7 +89803,7 @@ var initialData = {
     'column-3': {
       id: 'column-3',
       title: 'Group 3',
-      taskIds: ['task-4']
+      taskIds: ['task-5']
     }
   },
   // Facilitate reordering of the columns
