@@ -3,14 +3,14 @@ import axios from "axios";
 
 var initialData = {
   tasks: {
-    'task-1': { id: 'task-1', content: 'Shoikot',group:'1' },
+    
 
   },
   columns: {
     'column-0': {
       id: 'column-0',
       title: 'Inactive Students',
-      taskIds: ['task-1']
+      taskIds: []
     }
 
   },
@@ -32,12 +32,10 @@ axios.post(`/api/groups_list`,{
     .then(res => {
       let groups = res.data;
       //initialData.tasks['task-5'] = { id: 'task-5', content: groups[0].email }
-      console.log(groups);
-
       Object.keys(groups).forEach(function (item) {
         var student_email = groups[item].email;
         var student_group = groups[item].group_name;
-        console.log(student_email+student_group);
+        var student_name = groups[item].name;
         if(!initialData.columnOrder.includes(student_group))
         {
           initialData.columns[student_group] = {
@@ -48,7 +46,7 @@ axios.post(`/api/groups_list`,{
           initialData.columnOrder.push(student_group)
           
         }
-        initialData.tasks[student_email] = { id: student_email, content: student_email,group:groups[item].group_name }
+        initialData.tasks[student_email] = { id: student_email, content: student_name,group:groups[item].group_name }
         initialData.columns[student_group].taskIds.push(student_email);
       });
     })

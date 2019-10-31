@@ -125,8 +125,26 @@ class GroupController extends Controller
         
         if($this->realAuth($admin_email , $admin_token)){
        
-        $users = Groups::orderBy('group_name','asc')->get();
-        echo $users;
+        $group = Groups::orderBy('group_name','asc')->get();
+        echo $group;
+       }
+       else
+       {
+             return response()->json(['success'=>false, 'message' => 'fail']);
+        }
+
+    }
+    public function user_name(Request $request)
+
+    {
+        $admin_email = $request->json()->get( 'admin_email');
+        $admin_token = $request->json()->get( 'admin_token');
+        $email = $request->json()->get( 'email');
+        
+       if($this->realAuth($admin_email , $admin_token)){
+       
+        $user = User::where('email', '=', $email)->first();
+        return response()->json($user);
        }
        else
        {

@@ -9,9 +9,9 @@ ReactDOM.render(
   <Router>
       <Switch>
         <Route exact path='/' component={Login}/>
-        <Route path='/login' component={Login}/>
-        <Route path='/admin' component={Header}/>
-        <Route path='/Student' component={studentHeader}/>
+        <Route exact path='/login' component={Login}/>
+        <Route exact path='/admin' component={Header}/>
+        <Route exact path='/Student' component={studentHeader}/>
         <Route exact path="/*" component={Login} />
       </Switch>
   </Router>,

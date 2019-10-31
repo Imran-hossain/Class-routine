@@ -88789,12 +88789,15 @@ react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_
   path: "/",
   component: _login_Login__WEBPACK_IMPORTED_MODULE_4__["default"]
 }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], {
+  exact: true,
   path: "/login",
   component: _login_Login__WEBPACK_IMPORTED_MODULE_4__["default"]
 }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], {
+  exact: true,
   path: "/admin",
   component: _admin_Header__WEBPACK_IMPORTED_MODULE_2__["default"]
 }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], {
+  exact: true,
   path: "/Student",
   component: _student_studentHeader__WEBPACK_IMPORTED_MODULE_5__["default"]
 }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], {
@@ -89157,7 +89160,7 @@ function (_Component) {
         className: "dropdown-list-image mr-3"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         className: "rounded-circle",
-        src: "https://source.unsplash.com/AU4VPcFN4LE/60x60"
+        src: "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "status-indicator"
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -89171,7 +89174,7 @@ function (_Component) {
         className: "dropdown-list-image mr-3"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         className: "rounded-circle",
-        src: "https://source.unsplash.com/CS2uCrpNzJY/60x60"
+        src: "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "status-indicator bg-warning"
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -89386,7 +89389,21 @@ function (_Component) {
   _createClass(Member, [{
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "This is Member.");
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        style: {
+          maxWidth: '500px',
+          marginLeft: '10px'
+        }
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "navbar-brand",
+        href: "#"
+      }, "Add"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "navbar-brand",
+        href: "#"
+      }, "Delete"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "navbar-brand",
+        href: "#"
+      }, "Undate"));
     }
   }]);
 
@@ -89728,8 +89745,6 @@ function (_React$Component) {
       });
 
       _this.setState(newState);
-
-      initialData = state;
     });
 
     return _this;
@@ -89776,18 +89791,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
 var initialData = {
-  tasks: {
-    'task-1': {
-      id: 'task-1',
-      content: 'Shoikot',
-      group: '1'
-    }
-  },
+  tasks: {},
   columns: {
     'column-0': {
       id: 'column-0',
       title: 'Inactive Students',
-      taskIds: ['task-1']
+      taskIds: []
     }
   },
   // Facilitate reordering of the columns
@@ -89801,11 +89810,10 @@ axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/groups_list", {
 }).then(function (res) {
   var groups = res.data; //initialData.tasks['task-5'] = { id: 'task-5', content: groups[0].email }
 
-  console.log(groups);
   Object.keys(groups).forEach(function (item) {
     var student_email = groups[item].email;
     var student_group = groups[item].group_name;
-    console.log(student_email + student_group);
+    var student_name = groups[item].name;
 
     if (!initialData.columnOrder.includes(student_group)) {
       initialData.columns[student_group] = {
@@ -89818,7 +89826,7 @@ axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/groups_list", {
 
     initialData.tasks[student_email] = {
       id: student_email,
-      content: student_email,
+      content: student_name,
       group: groups[item].group_name
     };
     initialData.columns[student_group].taskIds.push(student_email);
@@ -89897,16 +89905,13 @@ function (_React$Component) {
     value: function render() {
       var _this = this;
 
-      var isDragDisabled = this.props.task.id === 'task-1';
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_beautiful_dnd__WEBPACK_IMPORTED_MODULE_2__["Draggable"], {
         draggableId: this.props.task.id,
-        index: this.props.index,
-        isDragDisabled: isDragDisabled
+        index: this.props.index
       }, function (provided, snapshot) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Container, _extends({}, provided.draggableProps, provided.dragHandleProps, {
           ref: provided.innerRef,
-          isDragging: snapshot.isDragging,
-          isDragDisabled: isDragDisabled
+          isDragging: snapshot.isDragging
         }), _this.props.task.content);
       });
     }

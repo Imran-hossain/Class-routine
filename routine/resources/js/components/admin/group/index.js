@@ -106,7 +106,7 @@ export default class Group extends React.Component {
       }
     }
     this.setState(newState)
-    initialData = state
+    
   }
 
   render() {

@@ -86,6 +86,7 @@ export default class Header extends Component {
             <i className="fas fa-male" />
             <span>Member</span>
           </Link>
+          
         </li>
 
 
@@ -241,7 +242,7 @@ export default class Header extends Component {
               <div className="dropdown-list-image mr-3">
                 <img
                   className="rounded-circle"
-                  src="https://source.unsplash.com/AU4VPcFN4LE/60x60"
+                  src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp"
                 />
                 <div className="status-indicator" />
               </div>
@@ -256,7 +257,7 @@ export default class Header extends Component {
               <div className="dropdown-list-image mr-3">
                 <img
                   className="rounded-circle"
-                  src="https://source.unsplash.com/CS2uCrpNzJY/60x60"
+                  src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp"
                 />
                 <div className="status-indicator bg-warning" />
               </div>
